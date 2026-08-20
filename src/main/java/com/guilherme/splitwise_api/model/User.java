@@ -31,4 +31,10 @@ public class User {
 
     @ManyToMany(mappedBy = "members")
     private List<Group> groups;
+
+    @OneToMany(mappedBy = "PaidBy")
+    private List<Expense> expensesPaid;
+
+    @OneToMany(mappedBy = "user")
+    private List<ExpenseSplit> expenseSplits;
 }

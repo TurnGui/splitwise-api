@@ -31,4 +31,7 @@ public class Group {
         inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private List<User> members;
+
+    @OneToMany(mappedBy = "group")
+    private List<Expense> expenses;
 }
