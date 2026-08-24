@@ -20,7 +20,7 @@ public class Expense {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     @Column(nullable = false)
     private String description;
@@ -32,13 +32,13 @@ public class Expense {
     private LocalDate date;
 
     @ManyToOne
-    @JoinColumn(name = "group_id" , nullable = false)
+    @JoinColumn(name = "group_id", nullable = false)
     private Group group;
 
     @ManyToOne
-    @JoinColumn(name = "Paid_by_user_id" , nullable = false)
-    private User PaidBy;
+    @JoinColumn(name = "paid_by_user_id", nullable = false)
+    private User paidBy;
 
-    @OneToMany(mappedBy = "expense_id")
+    @OneToMany(mappedBy = "expense")
     private List<ExpenseSplit> splits;
 }

@@ -1,10 +1,19 @@
 package com.guilherme.splitwise_api.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 import java.math.BigDecimal;
-import java.nio.file.attribute.UserPrincipal;
 
+@Entity
+@Table(name = "expense_splits")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ExpenseSplit {
 
     @Id

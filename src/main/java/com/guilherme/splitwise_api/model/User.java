@@ -32,7 +32,7 @@ public class User {
     @ManyToMany(mappedBy = "members")
     private List<Group> groups;
 
-    @OneToMany(mappedBy = "PaidBy")
+    @OneToMany(mappedBy = "paidBy")
     private List<Expense> expensesPaid;
 
     @OneToMany(mappedBy = "user")
