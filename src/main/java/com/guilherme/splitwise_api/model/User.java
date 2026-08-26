@@ -33,7 +33,7 @@ public class User {
     private List<Group> groups;
 
     @OneToMany(mappedBy = "paidBy")
-    private List<Expense> expensesPaid;
+    private List<Expense    > expensesPaid;
 
     @OneToMany(mappedBy = "user")
     private List<ExpenseSplit> expenseSplits;
