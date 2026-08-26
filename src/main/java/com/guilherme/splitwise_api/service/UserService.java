@@ -33,4 +33,29 @@ public class UserService {
             throw new RuntimeException("User not found with id: " + id);
         }
     }
+
+    public User updateUser(Long id, User updateUser){
+        Optional<User> resultado = userRepository.findById(id);
+
+        if (resultado.isPresent()) {
+            User user = resultado.get();
+            user.setName(updateUser.getName());
+            user.setEmail(updateUser.getEmail());
+            user.setPassword(updateUser.getPassword());
+            return userRepository.save(user);
+        } else {
+            throw new RuntimeException("User not found with id:" + id);
+        }
+    }
+
+    public void deleteUser(Long id){
+        Optional<User> resultado = userRepository.findById(id);
+
+        if (resultado.isPresent()) {
+            userRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("User with id" + id + "does not exist.");
+        }
+    }
+
 }
