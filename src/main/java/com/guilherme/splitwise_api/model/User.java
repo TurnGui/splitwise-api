@@ -1,5 +1,6 @@
 package com.guilherme.splitwise_api.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,9 +33,11 @@ public class User {
     @ManyToMany(mappedBy = "members")
     private List<Group> groups;
 
+    @JsonManagedReference("user-expenses-paid")
     @OneToMany(mappedBy = "paidBy")
-    private List<Expense    > expensesPaid;
+    private List<Expense> expensesPaid;
 
+    @JsonManagedReference("user-splits")
     @OneToMany(mappedBy = "user")
     private List<ExpenseSplit> expenseSplits;
 }
