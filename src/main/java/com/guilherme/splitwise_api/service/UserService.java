@@ -5,6 +5,7 @@ import com.guilherme.splitwise_api.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -15,11 +16,21 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    public User createUser(User user) {
+        return userRepository.save(user);
+    }
+
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public User createUser(User user) {
-        return userRepository.save(user);
+    public User getUserById(Long id) {
+        Optional<User> resultado = userRepository.findById(id);
+
+        if (resultado.isPresent()) {
+            return resultado.get();
+        } else {
+            throw new RuntimeException("User not found with id: " + id);
+        }
     }
 }
