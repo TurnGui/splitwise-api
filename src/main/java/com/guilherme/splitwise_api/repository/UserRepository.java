@@ -3,8 +3,8 @@ package com.guilherme.splitwise_api.repository;
 import com.guilherme.splitwise_api.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    List<User> id(Long id);
+    Optional<User> findByEmail(String email);
 }
