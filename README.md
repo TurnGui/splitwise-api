@@ -9,9 +9,9 @@ Java 17, Spring Boot, Spring Data JPA, H2 (dev), Lombok, Maven
 - [x] Project setup
 - [x] Domain model (User, Group, Expense, ExpenseSplit) with JPA relationships
 - [x] Repositories (Spring Data JPA)
-- [ ] Database connection + application.properties config
-- [ ] Service layer
-- [ ] REST controllers (CRUD)
+- [X] Database connection + application.properties config
+- [X] Service layer
+- [X] REST controllers (CRUD)
 - [ ] Authentication (JWT)
 - [ ] Advanced splitting logic
 - [ ] Debt simplification algorithm
