@@ -1,5 +1,6 @@
 package com.guilherme.splitwise_api.controller;
 
+import com.guilherme.splitwise_api.dto.CreateExpenseRequest;
 import com.guilherme.splitwise_api.model.Expense;
 import com.guilherme.splitwise_api.service.ExpenseService;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +23,8 @@ public class ExpenseController {
     }
 
     @PostMapping
-    public Expense createExpense(@RequestBody Expense expense) {
-        return expenseService.createExpense(expense);
+    public Expense createExpense(@RequestBody CreateExpenseRequest request) {
+        return expenseService.createExpense(request);
     }
 
     @GetMapping("/{id}")

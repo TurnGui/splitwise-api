@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 import java.util.List;
 import java.math.BigDecimal;
@@ -46,4 +48,8 @@ public class Expense {
     @JsonManagedReference("expense-splits")
     @OneToMany(mappedBy = "expense")
     private List<ExpenseSplit> splits;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private SplitType splitType;
 }
