@@ -14,6 +14,6 @@ Java 17, Spring Boot, Spring Data JPA, H2 (dev), Lombok, Maven
 - [X] REST controllers (CRUD)
 - [X] Authentication (JWT)
 - [X] Advanced splitting logic
-- [ ] Debt simplification algorithm
+- [X] Debt simplification algorithm
 - [ ] Tests
 - [ ] Docker + PostgreSQL migration

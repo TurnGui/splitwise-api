@@ -1,5 +1,6 @@
 package com.guilherme.splitwise_api.service;
 
+import com.guilherme.splitwise_api.exception.ResourceNotFoundException;
 import com.guilherme.splitwise_api.model.User;
 import com.guilherme.splitwise_api.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,17 +31,15 @@ public class UserService {
 
     public User getUserById(Long id) {
         Optional<User> resultado = userRepository.findById(id);
-
         if (resultado.isPresent()) {
             return resultado.get();
         } else {
-            throw new RuntimeException("User not found with id: " + id);
+            throw new ResourceNotFoundException("User not found with id: " + id);
         }
     }
 
-    public User updateUser(Long id, User updateUser){
+    public User updateUser(Long id, User updateUser) {
         Optional<User> resultado = userRepository.findById(id);
-
         if (resultado.isPresent()) {
             User user = resultado.get();
             user.setName(updateUser.getName());
@@ -48,18 +47,16 @@ public class UserService {
             user.setPassword(updateUser.getPassword());
             return userRepository.save(user);
         } else {
-            throw new RuntimeException("User not found with id:" + id);
+            throw new ResourceNotFoundException("User not found with id: " + id);
         }
     }
 
-    public void deleteUser(Long id){
+    public void deleteUser(Long id) {
         Optional<User> resultado = userRepository.findById(id);
-
         if (resultado.isPresent()) {
             userRepository.deleteById(id);
         } else {
-            throw new RuntimeException("User with id" + id + "does not exist.");
+            throw new ResourceNotFoundException("User with id " + id + " does not exist.");
         }
     }
-
 }
