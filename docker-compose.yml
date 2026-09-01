@@ -1,0 +1,28 @@
+services:
+  db:
+    image: postgres:16
+    container_name: splitwise-db
+    environment:
+      POSTGRES_DB: splitwise
+      POSTGRES_USER: splitwise
+      POSTGRES_PASSWORD: splitwise
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: splitwise-app
+    depends_on:
+      - db
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/splitwise
+      DB_USERNAME: splitwise
+      DB_PASSWORD: splitwise
+    ports:
+      - "8081:8081"
+
+volumes:
+  postgres_data:
