@@ -1,5 +1,6 @@
 package com.guilherme.splitwise_api.service;
 
+import com.guilherme.splitwise_api.exception.ResourceNotFoundException;
 import com.guilherme.splitwise_api.model.ExpenseSplit;
 import com.guilherme.splitwise_api.repository.ExpenseSplitRepository;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class ExpenseSplitService {
         if (resultado.isPresent()) {
             return resultado.get();
         } else {
-            throw new RuntimeException("ExpenseSplit not found with id:" + id);
+            throw new ResourceNotFoundException("ExpenseSplit not found with id:" + id);
         }
     }
 
@@ -42,7 +43,7 @@ public class ExpenseSplitService {
             expenseSplit.setAmountOwed(updateExpenseSplit.getAmountOwed());
             return expenseSplitRepository.save(expenseSplit);
         } else {
-            throw new RuntimeException("ExpenseSplit not found with id:" + id);
+            throw new ResourceNotFoundException("ExpenseSplit not found with id:" + id);
         }
     }
 
@@ -51,7 +52,7 @@ public class ExpenseSplitService {
         if (resultado.isPresent()) {
             expenseSplitRepository.deleteById(id);
         } else {
-            throw new RuntimeException("ExpenseSplit with id" + id + "does not exist.");
+            throw new ResourceNotFoundException("ExpenseSplit with id" + id + "does not exist.");
         }
     }
 }

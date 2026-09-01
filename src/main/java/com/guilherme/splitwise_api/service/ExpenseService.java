@@ -2,6 +2,8 @@ package com.guilherme.splitwise_api.service;
 
 import com.guilherme.splitwise_api.dto.CreateExpenseRequest;
 import com.guilherme.splitwise_api.dto.SplitDetail;
+import com.guilherme.splitwise_api.exception.InvalidRequestException;
+import com.guilherme.splitwise_api.exception.ResourceNotFoundException;
 import com.guilherme.splitwise_api.model.*;
 import com.guilherme.splitwise_api.repository.ExpenseRepository;
 import com.guilherme.splitwise_api.repository.ExpenseSplitRepository;
@@ -32,9 +34,9 @@ public class ExpenseService {
 
     public Expense createExpense(CreateExpenseRequest request) {
         Group group = groupRepository.findById(request.getGroupId())
-                .orElseThrow(() -> new RuntimeException("Group not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Group not found"));
         User paidBy = userRepository.findById(request.getPaidById())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         Expense expense = new Expense();
         expense.setDescription(request.getDescription());
@@ -84,14 +86,14 @@ public class ExpenseService {
         }
 
         if (totalPercentage.compareTo(BigDecimal.valueOf(100)) != 0) {
-            throw new RuntimeException("Percentages must add up to 100, but they add up to " + totalPercentage);
+            throw new InvalidRequestException("Percentages must add up to 100, but they add up to " + totalPercentage);
         }
 
         BigDecimal totalAmount = expense.getAmount();
 
         for (SplitDetail detail : splitDetails) {
             User user = userRepository.findById(detail.getUserId())
-                    .orElseThrow(() -> new RuntimeException("User not found"));
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
             BigDecimal percentage = detail.getValue();
             BigDecimal amountOwed = totalAmount
@@ -109,13 +111,13 @@ public class ExpenseService {
         }
 
         if (totalSplit.compareTo(expense.getAmount()) != 0) {
-            throw new RuntimeException("Split amounts must add up to the expense total (" +
+            throw new InvalidRequestException("Split amounts must add up to the expense total (" +
                     expense.getAmount() + "), but they add up to " + totalSplit);
         }
 
         for (SplitDetail detail : splitDetails) {
             User user = userRepository.findById(detail.getUserId())
-                    .orElseThrow(() -> new RuntimeException("User not found"));
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
             saveSplit(expense, user, detail.getValue());
         }
@@ -138,7 +140,7 @@ public class ExpenseService {
         if (resultado.isPresent()) {
             return resultado.get();
         } else {
-            throw new RuntimeException("Expense not found with id:" + id);
+            throw new ResourceNotFoundException("Expense not found with id:" + id);
         }
     }
 
@@ -153,7 +155,7 @@ public class ExpenseService {
             expense.setPaidBy(updateExpense.getPaidBy());
             return expenseRepository.save(expense);
         } else {
-            throw new RuntimeException("Expense not found with id:" + id);
+            throw new ResourceNotFoundException("Expense not found with id:" + id);
         }
     }
 
@@ -162,7 +164,7 @@ public class ExpenseService {
         if (resultado.isPresent()) {
             expenseRepository.deleteById(id);
         } else {
-            throw new RuntimeException("Expense with id" + id + "does not exist.");
+            throw new ResourceNotFoundException("Expense with id" + id + "does not exist.");
         }
     }
 }
