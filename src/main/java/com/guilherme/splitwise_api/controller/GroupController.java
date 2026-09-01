@@ -1,5 +1,6 @@
 package com.guilherme.splitwise_api.controller;
 
+import com.guilherme.splitwise_api.dto.DebtTransaction;
 import com.guilherme.splitwise_api.model.Group;
 import com.guilherme.splitwise_api.service.BalanceService;
 import com.guilherme.splitwise_api.service.GroupService;
@@ -49,5 +50,10 @@ public class GroupController {
     @GetMapping("/{id}/balances")
     public Map<String, BigDecimal> getGroupBalances(@PathVariable Long id) {
         return balanceService.getGroupBalances(id);
+    }
+
+    @GetMapping("/{id}/simplify-debts")
+    public List<DebtTransaction> simplifyDebts(@PathVariable Long id) {
+        return balanceService.simplifyGroupDebts(id);
     }
 }
