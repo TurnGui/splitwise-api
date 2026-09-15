@@ -10,6 +10,8 @@
 
 REST API for splitting shared expenses between groups, built with Spring Boot.
 
+**Live:** https://splitwise-api-production.up.railway.app
+
 ## Why this project
 
 Built to demonstrate backend engineering fundamentals for a Java/Spring Boot job search: a layered architecture (Controller -> Service -> Repository), JPA entity relationships (including bidirectional `@ManyToMany` and `@OneToMany`/`@ManyToOne` with JSON serialization handling), JWT-based authentication, a validated multi-strategy expense-splitting engine, and a greedy debt-simplification algorithm. Every line was written and can be explained individually, with no generated boilerplate.
@@ -124,7 +126,7 @@ All endpoints are prefixed as shown. Endpoints other than `POST /users` and `/au
 ### Example - create an expense with a percentage split
 
 ```bash
-curl -X POST http://localhost:8081/expenses \
+curl -X POST https://splitwise-api-production.up.railway.app/expenses \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <token>" \
   -d '{
@@ -165,6 +167,6 @@ Unit tests cover the service layer (password hashing, CRUD, split calculations, 
 - [x] Deploy (Railway)
 - [ ] API documentation (OpenAPI/Swagger)
 
-## Author
+## License
 
-Guilherme - [github.com/TurnGui](https://github.com/TurnGui)
+Released under the [MIT License](LICENSE).
